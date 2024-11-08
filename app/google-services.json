@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "307287137673",
+    "project_id": "spinboxmusic-38938",
+    "storage_bucket": "spinboxmusic-38938.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:307287137673:android:acd05dc423b478b6235558",
+        "android_client_info": {
+          "package_name": "com.example.spinboxmusicapplication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNN1VSW85bahF1L2nIyicxQUkeIKWkWqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
