@@ -1,56 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".MainActivity"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/background_img"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/spinboxMusicLogoImage"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/spinbox_music_logo_yellow"
-        tools:layout_editor_absoluteY="37dp"
-        tools:ignore="MissingConstraints" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_img"
+        tools:context=".MainActivity"
+        tools:ignore="RedundantNamespace">
 
-    <ImageView
-        android:id="@+id/userImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_person_24"
-        tools:layout_editor_absoluteY="37dp"
-        tools:ignore="MissingConstraints" />
+        <ImageView
+            android:id="@+id/navigationDrawerImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/baseline_menu_24"
+            tools:layout_editor_absoluteY="37dp"
+            tools:ignore="MissingConstraints" />
 
-    <ImageView
-        android:id="@+id/logOutImageView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/baseline_login_24"
-        tools:layout_editor_absoluteY="37dp"
-        tools:ignore="MissingConstraints" />
+        <ImageView
+            android:id="@+id/spinboxMusicLogoImage"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/spinbox_music_logo_yellow"
+            tools:ignore="MissingConstraints" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:textSize="10dp"
-        android:textColor="@color/spinbox_yellow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/userImageView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_person_24"
+            tools:ignore="MissingConstraints" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:textColor="@color/spinbox_yellow"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        android:background="@color/spinbox_yellow"
+        app:itemTextColor="@color/spinbox_brown"
+        app:menu="@menu/nav_menu"
+        tools:ignore="MissingConstraints"
+        android:layout_marginEnd="120dp"
+        android:paddingTop="120dp" />
+
+</androidx.drawerlayout.widget.DrawerLayout>
+

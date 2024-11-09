@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn = "navigationView">
+
+    <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/baseline_home_24"
+        android:iconTint="@color/spinbox_yellow"
+        android:title="Anasayfa" />
+
+    <item
+        android:id="@+id/navFavorites"
+        android:icon="@drawable/baseline_favorite_border_24"
+        android:iconTint="@color/spinbox_yellow"
+        android:title="Favorilerim" />
+
+    <item
+        android:id="@+id/navOrders"
+        android:icon="@drawable/baseline_shopping_bag_24"
+        android:iconTint="@color/spinbox_yellow"
+        android:title="Siparişlerim" />
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/navLogOut"
+                android:icon="@drawable/baseline_login_24"
+                android:iconTint="@color/spinbox_yellow"
+                android:title="Çıkış Yap" />
+        </menu>
+    </item>
+</menu>

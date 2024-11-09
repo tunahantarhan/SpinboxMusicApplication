@@ -22,6 +22,8 @@ class WelcomeScreenActivity: AppCompatActivity(){
 
         firebaseAuth = FirebaseAuth.getInstance()
 
+        val currentUser = firebaseAuth.currentUser
+
         val currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val greetingText = binding.greetingTextView
         if (currentHour in 6..11){
@@ -44,6 +46,12 @@ class WelcomeScreenActivity: AppCompatActivity(){
         binding.textView.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+        }
+
+        if (currentUser != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

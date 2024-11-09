@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION")
 class SignInActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivitySignInBinding
@@ -35,6 +36,7 @@ class SignInActivity : AppCompatActivity(){
                     if (it.isSuccessful) {
                         val intent = Intent(this, MainActivity::class.java) //Başarılı bir şekilde giriş yaparsa MainActivity'ye yönlendirilir.
                         startActivity(intent)
+                        finish() //Geri tuşu ile login ekranına dönülmemesi için.
                     } else {
                         Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                     //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
