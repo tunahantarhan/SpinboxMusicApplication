@@ -48,11 +48,24 @@
             android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/cartImageView"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/baseline_person_24"
+            tools:ignore="MissingConstraints" />
+
+        <ImageView
+            android:id="@+id/cartImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="23.5dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_shopping_cart_24"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -60,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="Normal User"
             android:textColor="@color/spinbox_yellow"
-            android:textSize="15dp"
+            android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

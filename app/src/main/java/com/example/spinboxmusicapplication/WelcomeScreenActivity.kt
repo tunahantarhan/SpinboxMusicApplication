@@ -2,6 +2,7 @@ package com.example.spinboxmusicapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.example.spinboxmusicapplication.databinding.ActivityWelcomeScreenBind
 import com.google.firebase.auth.FirebaseAuth
 import java.util.Calendar
 
+@Suppress("DEPRECATION")
 class WelcomeScreenActivity: AppCompatActivity(){
 
     private lateinit var binding: ActivityWelcomeScreenBinding
@@ -16,6 +18,8 @@ class WelcomeScreenActivity: AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         binding = ActivityWelcomeScreenBinding.inflate(layoutInflater)
         setContentView(binding.root)

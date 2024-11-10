@@ -2,6 +2,7 @@ package com.example.spinboxmusicapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivityChangeMailBinding
@@ -15,6 +16,8 @@ class ChangeMailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         binding = ActivityChangeMailBinding.inflate(layoutInflater)
         setContentView(binding.root)

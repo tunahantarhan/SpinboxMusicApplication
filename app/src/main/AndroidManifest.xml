@@ -28,12 +28,17 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".AdMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity android:name=".AdProfileActivity"
             android:exported="false" />
         <activity android:name=".ChangeMailActivity"
             android:exported="false"

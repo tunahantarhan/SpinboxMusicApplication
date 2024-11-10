@@ -3,7 +3,6 @@ package com.example.spinboxmusicapplication
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -12,16 +11,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.spinboxmusicapplication.databinding.ActivityMainBinding
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.delay
-import java.util.zip.Inflater
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
 
@@ -33,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()  // Firestore başlatıldı
 
         drawerLayout  = binding.drawerLayout
         val navView = binding.navView
@@ -45,21 +44,12 @@ class MainActivity : AppCompatActivity() {
         navView.setNavigationItemSelectedListener{
             when(it.itemId){
                 R.id.navHome -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                 }
-                /*R.id.navFavorites -> {
-                    val intent = Intent(this, FavoritesActivity::class.java))
-                    startActivity(intent)
-                }*/
-                /*R.id.navOrders -> {
-                    val intent = Intent(this, OrdersActivity::class.java))
-                    startActivity(intent)
-                }*/
                 R.id.navLogOut -> {
                     firebaseAuth.signOut()
-                    val intent = Intent(this, SignInActivity::class.java)
-                    startActivity(intent)
+                    finish()
+                    startActivity(Intent(this, SignInActivity::class.java))
                     finish()
                 }
             }
@@ -67,12 +57,32 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.navigationDrawerImageView.setOnClickListener {
-            drawerLayout.openDrawer(GravityCompat.START) // Open the drawer
+            drawerLayout.openDrawer(GravityCompat.START) // Drawer açılıyor
         }
 
         binding.userImageView.setOnClickListener{
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+            val user = firebaseAuth.currentUser
+            user?.let {
+                val uid = user.uid
+                firestore.collection("users").document(uid).get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            val role = document.get("role").toString()
+                            when (role) {
+                                "admin" -> {
+                                    startActivity(Intent(this, AdProfileActivity::class.java))
+                                }
+                                "user" -> {
+                                    startActivity(Intent(this, ProfileActivity::class.java))
+                                }
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        // Hata durumunda Logcat'e hata mesajı basabilirsiniz
+                        e.printStackTrace()
+                    }
+            }
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -83,11 +93,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        if (toggle.onOptionsItemSelected(item)){
-            return true
-        }
-
-        return super.onOptionsItemSelected(item)
+        return if (toggle.onOptionsItemSelected(item)) {
+            true
+        } else super.onOptionsItemSelected(item)
     }
 }

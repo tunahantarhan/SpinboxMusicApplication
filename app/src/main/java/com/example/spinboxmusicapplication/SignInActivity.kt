@@ -2,47 +2,69 @@ package com.example.spinboxmusicapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Suppress("DEPRECATION")
-class SignInActivity : AppCompatActivity(){
+class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         binding = ActivitySignInBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
-        binding.textView.setOnClickListener{
+        // Giriş ekranına yönlendirme
+        binding.textView.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
 
-        binding.button.setOnClickListener{
-            val email = binding.emailEnter.text.toString() //emailEnter kısmına girilen email'i alır.
-            val pass = binding.passwordEnter.text.toString() //passwordEnter kısmına girilen password'ü alır.
+        // Giriş yap butonuna tıklandığında
+        binding.button.setOnClickListener {
+            val email = binding.emailEnter.text.toString()
+            val pass = binding.passwordEnter.text.toString()
 
-            //Tüm kutucuklar doluysa ve girilen şifreler uyuşuyorsa:
-            if (email.isNotEmpty() && pass.isNotEmpty()){
-                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java) //Başarılı bir şekilde giriş yaparsa MainActivity'ye yönlendirilir.
-                        startActivity(intent)
-                        finish() //Geri tuşu ile login ekranına dönülmemesi için.
+            if (email.isNotEmpty() && pass.isNotEmpty()) {
+                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val user = firebaseAuth.currentUser
+                        user?.let {
+                            val uid = user.uid
+                            firestore.collection("users").document(uid).get()
+                                .addOnSuccessListener { document ->
+                                    if (document.exists()) {
+                                        val role = document.get("role").toString()
+                                        Toast.makeText(this, "Giriş başarılı. Rol: ${role.uppercase()}", Toast.LENGTH_SHORT).show()
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(this, "Veritabanı hatası: ${it.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show() //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
+                        Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Lütfen tüm bilgilerin girildiğinden emin olunuz.", Toast.LENGTH_SHORT).show()
             }
         }
@@ -50,10 +72,10 @@ class SignInActivity : AppCompatActivity(){
 
     override fun onStart() {
         super.onStart()
-        //En son giriş yapan kullanıcı çıkış yapmamışsa her uygulamaya girişte tekrar hesaba giriş yapılmasını önler.
+        // Oturum açılmışsa önce kullanıcıyı çıkış yap, tekrar giriş yapmaya zorla
         if (firebaseAuth.currentUser != null) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            firebaseAuth.signOut()
+            Toast.makeText(this, "Lütfen yeniden giriş yapınız.", Toast.LENGTH_SHORT).show()
         }
     }
 }

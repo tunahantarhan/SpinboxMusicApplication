@@ -2,6 +2,7 @@ package com.example.spinboxmusicapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignUpBinding
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 
+@Suppress("DEPRECATION")
 class SignUpActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivitySignUpBinding
@@ -17,6 +19,8 @@ class SignUpActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_FULLSCREEN
+        actionBar?.hide()
 
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
