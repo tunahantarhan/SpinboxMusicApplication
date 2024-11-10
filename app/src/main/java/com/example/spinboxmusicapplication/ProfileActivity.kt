@@ -32,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         val currentUser = firebaseAuth.currentUser
         val currentUserEmail = currentUser?.email
         val userEmailTextView = findViewById<TextView>(R.id.userEmailTextView)
-        userEmailTextView.text = "E-posta : $currentUserEmail"
+        userEmailTextView.text = "$currentUserEmail"
 
 
 

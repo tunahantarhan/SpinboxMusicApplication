@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/spinbox_yellow"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:layout_marginTop="250dp"
         android:background="@color/spinbox_brown"

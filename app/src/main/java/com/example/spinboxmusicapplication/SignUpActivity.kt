@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignUpBinding
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class SignUpActivity : AppCompatActivity(){
 
@@ -35,9 +38,20 @@ class SignUpActivity : AppCompatActivity(){
                 else if (pass == confirmPass){
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            val intent = Intent(this, SignInActivity::class.java)
-                            startActivity(intent)
-                        } else {
+                            val currentUser = firebaseAuth.currentUser
+                            val db = FirebaseFirestore.getInstance()
+                            val userData = hashMapOf(
+                                "role" to "user"
+                            )
+
+                            db.collection("users").document(currentUser!!.uid).set(userData).addOnSuccessListener{
+                                val intent = Intent(this, SignInActivity::class.java)
+                                startActivity(intent)
+                            }.addOnFailureListener { e ->
+                                Toast.makeText(this, "User data kayıt hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                        else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                             //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
                         }

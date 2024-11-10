@@ -52,9 +52,14 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, FavoritesActivity::class.java))
                     startActivity(intent)
                 }*/
-
+                /*R.id.navOrders -> {
+                    val intent = Intent(this, OrdersActivity::class.java))
+                    startActivity(intent)
+                }*/
                 R.id.navLogOut -> {
                     firebaseAuth.signOut()
+                    val intent = Intent(this, SignInActivity::class.java)
+                    startActivity(intent)
                     finish()
                 }
             }

@@ -38,8 +38,7 @@ class SignInActivity : AppCompatActivity(){
                         startActivity(intent)
                         finish() //Geri tuşu ile login ekranına dönülmemesi için.
                     } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                    //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
+                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show() //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
                     }
                 }
             }
