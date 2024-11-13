@@ -75,7 +75,6 @@ class SignInActivity : AppCompatActivity() {
         // Oturum açılmışsa önce kullanıcıyı çıkış yap, tekrar giriş yapmaya zorla
         if (firebaseAuth.currentUser != null) {
             firebaseAuth.signOut()
-            Toast.makeText(this, "Lütfen yeniden giriş yapınız.", Toast.LENGTH_SHORT).show()
         }
     }
 }

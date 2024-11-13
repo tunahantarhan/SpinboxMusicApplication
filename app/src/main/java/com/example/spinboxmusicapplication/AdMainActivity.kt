@@ -34,5 +34,10 @@ class AdMainActivity : AppCompatActivity() {
             val intent = Intent(this, AdProfileActivity::class.java)
             startActivity(intent)
         }
+
+        binding.homepageImageView.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

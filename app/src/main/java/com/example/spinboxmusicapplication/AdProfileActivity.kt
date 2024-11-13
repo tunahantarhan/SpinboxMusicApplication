@@ -33,12 +33,6 @@ class AdProfileActivity : AppCompatActivity() {
         val userEmailTextView = findViewById<TextView>(R.id.userEmailTextView)
         userEmailTextView.text = "$currentUserEmail"
 
-        val buttonHomePage = binding.homepageButton
-        buttonHomePage.setOnClickListener(){
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-        }
-
         val buttonAdminMainActivity = binding.adminMainActivityButton
         buttonAdminMainActivity.setOnClickListener(){
             startActivity(Intent(this, AdMainActivity::class.java))

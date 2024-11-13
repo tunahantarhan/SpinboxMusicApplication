@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.androidx.constraintlayout) //layout tanımlamaları için android constraint layout kütüphanesi
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation("com.google.code.gson:gson:2.8.8")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

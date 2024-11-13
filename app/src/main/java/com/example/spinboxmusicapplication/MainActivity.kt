@@ -1,8 +1,10 @@
 package com.example.spinboxmusicapplication
 
 import android.content.Intent
+import android.net.http.HttpResponseCache.install
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.example.spinboxmusicapplication.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.Gson
+import com.google.rpc.context.AttributeContext.Auth
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 
 @Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
@@ -27,11 +34,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        //bannerList'e banner resimleri eklendi
+        val bannerList = listOf(
+            R.drawable.banner_0,
+            R.drawable.banner_1
+        )
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Firebase ve Firestore başlatıldı
         firebaseAuth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()  // Firestore başlatıldı
+        firestore = FirebaseFirestore.getInstance()
 
         drawerLayout  = binding.drawerLayout
         val navView = binding.navView
@@ -85,16 +99,94 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        val viewFlipper = binding.viewFlipper
+        val animationIn = android.R.anim.slide_in_left
+        val animationOut = android.R.anim.slide_out_right
+
+        viewFlipper.inAnimation = android.view.animation.AnimationUtils.loadAnimation(this, animationIn)
+        viewFlipper.outAnimation = android.view.animation.AnimationUtils.loadAnimation(this, animationOut)
+
+        for (image in bannerList){
+            val imageView = android.widget.ImageView(this)
+            imageView.setImageResource(image)
+            imageView.layoutParams = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
+            )
+            viewFlipper.addView(imageView)
+        }
+        viewFlipper.startFlipping()
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        fetchCurrencyDataUsd().start()
+        fetchCurrencyDataEur().start()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (toggle.onOptionsItemSelected(item)) {
             true
         } else super.onOptionsItemSelected(item)
+    }
+
+    //WEB API --> USD/TRY kurunu çeker.
+    private fun fetchCurrencyDataUsd(): Thread {
+        return Thread {
+            val currencyUsdTry = binding.tryUsd
+            val link = URL("https://open.er-api.com/v6/latest/usd")
+            val connection = link.openConnection() as HttpsURLConnection
+
+            if (connection.responseCode == 200) {
+                val inputSystem = connection.inputStream
+                val inputStreamReader = InputStreamReader(inputSystem, "UTF-8")
+                val request = Gson().fromJson(inputStreamReader, RequestUsd::class.java)
+                inputSystem.close()
+                inputStreamReader.close()
+
+                val usdTryRate = request.rates["TRY"]  // Get the TRY rate
+                if (usdTryRate != null) {
+                    currencyValueUsd(usdTryRate)
+                }
+            } else {
+                currencyUsdTry.text = "Bağlantı Hatası"
+            }
+        }
+    }
+
+    //WEB API --> EUR/TRY kurunu çeker.
+    private fun fetchCurrencyDataEur(): Thread {
+        return Thread {
+            val currencyEurTry = binding.tryEur
+            val link = URL("https://open.er-api.com/v6/latest/eur")
+            val connection = link.openConnection() as HttpsURLConnection
+
+            if (connection.responseCode == 200) {
+                val inputSystem = connection.inputStream
+                val inputStreamReader = InputStreamReader(inputSystem, "UTF-8")
+                val request = Gson().fromJson(inputStreamReader, RequestEur::class.java)
+                inputSystem.close()
+                inputStreamReader.close()
+
+                val eurTryRate = request.rates["TRY"]  // Get the TRY rate
+                currencyValueEur(eurTryRate)
+            } else {
+                currencyEurTry.text = "Bağlantı Hatası"
+            }
+        }
+    }
+
+    private fun currencyValueUsd(usdTryRate: Double) {
+        runOnUiThread {
+            binding.tryUsd.text = String.format("$ = $usdTryRate")
+        }
+    }
+
+    private fun currencyValueEur(eurTryRate: Double?) {
+        runOnUiThread {
+            binding.tryEur.text = String.format("€ = $eurTryRate")
+        }
     }
 }

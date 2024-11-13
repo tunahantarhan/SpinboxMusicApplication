@@ -9,9 +9,10 @@
     tools:context=".AdProfileActivity">
 
     <TextView
+        android:id="@+id/userEmailTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Profil"
+        android:text=""
         android:textColor="@color/spinbox_yellow"
         android:textSize="25dp"
         android:textStyle="bold"
@@ -35,39 +36,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/baseline_person_24"
         tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/userEmailTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/spinbox_yellow"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        android:layout_marginTop="250dp"
-        android:background="@color/spinbox_brown"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/homepageButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="280dp"
-        android:background="@color/spinbox_yellow"
-        android:text="Anasayfa"
-        android:textColor="@color/spinbox_brown"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/adminMainActivityButton"

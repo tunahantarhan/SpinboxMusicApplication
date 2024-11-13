@@ -47,6 +47,7 @@ class SignUpActivity : AppCompatActivity(){
                             val userData = hashMapOf(
                                 "role" to "user"
                             )
+                            Toast.makeText(this,"Başarılı bir şekilde giriş yapıldı.", Toast.LENGTH_SHORT).show()
 
                             db.collection("users").document(currentUser!!.uid).set(userData).addOnSuccessListener{
                                 val intent = Intent(this, SignInActivity::class.java)

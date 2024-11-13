@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.spinboxmusicapplication.databinding.ActivityProfileBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
 import java.util.zip.Inflater
 
@@ -31,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val currentUser = firebaseAuth.currentUser
         val currentUserEmail = currentUser?.email
-        val userEmailTextView = findViewById<TextView>(R.id.userEmailTextView)
+        val userEmailTextView = binding.userEmailTextView
         userEmailTextView.text = "$currentUserEmail"
 
 
@@ -53,6 +54,8 @@ class ProfileActivity : AppCompatActivity() {
                 .setMessage("Hesabınız silinecektir. Emin misiniz?")
                 .setCancelable(false)
                 .setPositiveButton("Evet") { dialog, _ ->
+                    val db = FirebaseFirestore.getInstance()
+                    db.collection("users").document(currentUser!!.uid).delete()
                     currentUser?.delete()?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this@ProfileActivity, "Hesabınız silindi.", Toast.LENGTH_LONG).show()
