@@ -21,9 +21,8 @@ class AdMainActivity : AppCompatActivity() {
         actionBar?.hide()
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance() // Firestore'u da başlatmayı unutmayın.
+        firestore = FirebaseFirestore.getInstance()
 
-        // firebaseAuth başlatıldıktan sonra currentUser'ı güncelleyin
         val currentUser = firebaseAuth.currentUser
 
         binding = ActivityAdMainBinding.inflate(layoutInflater)
