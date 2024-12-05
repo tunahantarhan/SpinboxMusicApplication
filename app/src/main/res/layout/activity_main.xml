@@ -90,7 +90,8 @@
             android:layout_height="35dp"
             android:layout_marginTop="18.5dp"
             android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toStartOf="@id/userImageView"            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintEnd_toStartOf="@id/userImageView"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tryUsd"
             app:srcCompat="@drawable/baseline_shopping_cart_24"
@@ -107,6 +108,7 @@
             android:flipInterval="6000" />
 
         <TextView
+            android:id="@+id/mainAlbumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ALBÜMLER"
@@ -117,6 +119,66 @@
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewFlipper"/>
+
+        <ImageView
+            android:id="@+id/mainAlbumImage1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
+            app:layout_constraintHorizontal_bias="0.08"
+            app:srcCompat="@drawable/arctic_monkeys_whatever"
+            tools:layout_editor_absoluteY="37dp"
+            tools:ignore="MissingConstraints" />
+        <ImageView
+            android:id="@+id/mainAlbumImage2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:srcCompat="@drawable/drinking_songs"
+            tools:layout_editor_absoluteY="37dp"
+            tools:ignore="MissingConstraints" />
+        <ImageView
+            android:id="@+id/mainAlbumImage3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
+            app:layout_constraintHorizontal_bias="0.92"
+            app:srcCompat="@drawable/nasil_ne_zaman"
+            tools:layout_editor_absoluteY="37dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/goAlbumTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tümünü Gör"
+            android:textColor="@color/spinbox_yellow"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="@color/spinbox_brown"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintTop_toBottomOf="@id/mainAlbumImage3"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -4,6 +4,8 @@ import android.content.Intent
 import android.net.http.HttpResponseCache.install
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -12,6 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import com.example.spinboxmusicapplication.databinding.ActivityAlbumsBinding
 import com.example.spinboxmusicapplication.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,9 +25,9 @@ import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
 @Suppress("DEPRECATION")
-class MainActivity : AppCompatActivity() {
+class AlbumsActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityAlbumsBinding
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var firestore: FirebaseFirestore
     private lateinit var drawerLayout: DrawerLayout
@@ -34,25 +37,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        //bannerList'e banner resimleri eklendi
-        val bannerList = listOf(
-            R.drawable.banner_0,
-            R.drawable.banner_1
-        )
-
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAlbumsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Firebase ve Firestore başlatıldı
         firebaseAuth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
 
+        //BAŞLA Drawer
         drawerLayout  = binding.drawerLayout
         val navView = binding.navView
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+        //BİTİR Drawer
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         navView.setNavigationItemSelectedListener{
@@ -99,24 +98,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val viewFlipper = binding.viewFlipper
-        val animationIn = android.R.anim.slide_in_left
-        val animationOut = android.R.anim.slide_out_right
-
-        viewFlipper.inAnimation = android.view.animation.AnimationUtils.loadAnimation(this, animationIn)
-        viewFlipper.outAnimation = android.view.animation.AnimationUtils.loadAnimation(this, animationOut)
-
-        for (image in bannerList){
-            val imageView = android.widget.ImageView(this)
-            imageView.setImageResource(image)
-            imageView.layoutParams = RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT
-            )
-            viewFlipper.addView(imageView)
-        }
-        viewFlipper.startFlipping()
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -124,10 +105,6 @@ class MainActivity : AppCompatActivity() {
         }
         fetchCurrencyDataUsd().start()
         fetchCurrencyDataEur().start()
-
-        binding.goAlbumTextView.setOnClickListener{
-            startActivity(Intent(this, AlbumsActivity::class.java))
-        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
