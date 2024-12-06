@@ -1,6 +1,7 @@
 package com.example.spinboxmusicapplication
 
 import Album
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -60,9 +61,10 @@ class AlbumsActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         // Firebase Realtime Database'e bağlantı
-        val myRef = FirebaseDatabase.getInstance().getReference("products") // "products" koleksiyonunu kullanıyoruz.
+        val myRef = FirebaseDatabase.getInstance().getReference("products")
 
         myRef.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 // Veritabanından gelen verileri listeye ekleyin
                 albumList.clear() // Listeyi temizle
@@ -81,6 +83,8 @@ class AlbumsActivity : AppCompatActivity() {
             }
         })
 
+        binding.
+
         // Navigation Drawer işlemleri
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
@@ -96,7 +100,7 @@ class AlbumsActivity : AppCompatActivity() {
             true
         }
 
-        //Drawer Başlatma
+        // Drawer Başlatma
         binding.navigationDrawerImageView.setOnClickListener {
             drawerLayout.openDrawer(GravityCompat.START) // Drawer açılıyor
         }
