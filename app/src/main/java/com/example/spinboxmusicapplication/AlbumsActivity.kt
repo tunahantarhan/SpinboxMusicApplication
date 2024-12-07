@@ -9,7 +9,10 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +26,7 @@ import java.io.InputStreamReader
 import java.net.URL
 import javax.net.ssl.HttpsURLConnection
 
+@Suppress("DEPRECATION")
 class AlbumsActivity : AppCompatActivity() {
 
     private lateinit var database: DatabaseReference
@@ -114,21 +118,39 @@ class AlbumsActivity : AppCompatActivity() {
             val user = firebaseAuth.currentUser
             user?.let {
                 val uid = user.uid
-                firestore.collection("users").document(uid).get()
-                    .addOnSuccessListener { document ->
-                        if (document.exists()) {
-                            val role = document.get("role").toString()
-                            when (role) {
-                                "admin" -> startActivity(Intent(this, AdProfileActivity::class.java))
-                                "user" -> startActivity(Intent(this, ProfileActivity::class.java))
+                val database = FirebaseDatabase.getInstance().getReference("users")
+
+                database.child(uid).get().addOnSuccessListener { snapshot ->
+                    if (snapshot.exists()) {
+                        val role = snapshot.child("role").value.toString()
+                        when (role) {
+                            "admin" -> {
+                                startActivity(Intent(this, AdProfileActivity::class.java))
+                            }
+                            "user" -> {
+                                startActivity(Intent(this, ProfileActivity::class.java))
+                            }
+                            else -> {
+                                Toast.makeText(this, "Bilinmeyen rol.", Toast.LENGTH_SHORT).show()
                             }
                         }
+                    } else {
+                        Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener { e ->
-                        e.printStackTrace()
-                    }
+                }.addOnFailureListener { e ->
+                    e.printStackTrace()
+                    Toast.makeText(this, "Veritabanı hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        window.statusBarColor = ContextCompat.getColor(this, R.color.spinbox_brown)
+
 
         // Currency Data Fetch
         fetchCurrencyDataUsd().start()

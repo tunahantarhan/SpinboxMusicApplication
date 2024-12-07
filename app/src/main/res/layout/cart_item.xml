@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#322401"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:padding="8dp"
     android:alpha="0.7"
     android:layout_marginBottom="5dp">
@@ -11,12 +13,13 @@
 
     <TextView
         android:id="@+id/cartAlbumTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Album Title"
         android:textColor="@color/spinbox_yellow"
-        android:textSize="15dp"
+        android:textSize="17dp"
         android:textStyle="bold"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +37,17 @@
         app:layout_constraintStart_toStartOf="@id/cartAlbumTitle"
         app:layout_constraintTop_toBottomOf="@id/cartAlbumTitle" />
 
+    <ImageView
+        android:id="@+id/cartQuantityImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_shopping_bag_24"
+        app:layout_constraintStart_toStartOf="@id/cartAlbumArtist"
+        app:layout_constraintTop_toBottomOf="@id/cartAlbumArtist"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="5dp">
+    </ImageView>
+
     <TextView
         android:id="@+id/cartAlbumQuantity"
         android:layout_width="0dp"
@@ -41,8 +55,22 @@
         android:text="Quantity: "
         android:textColor="@color/spinbox_yellow"
         android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="@id/cartAlbumArtist"
-        app:layout_constraintTop_toBottomOf="@id/cartAlbumArtist" />
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/cartQuantityImageView"
+        app:layout_constraintTop_toTopOf="@id/cartQuantityImageView"
+        app:layout_constraintBottom_toBottomOf="@id/cartQuantityImageView"/>
+
+    <ImageView
+        android:id="@+id/cartAlbumPriceImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_money_24"
+        app:layout_constraintStart_toStartOf="@id/cartQuantityImageView"
+        app:layout_constraintTop_toBottomOf="@id/cartQuantityImageView"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp">
+    </ImageView>
+
 
     <TextView
         android:id="@+id/cartAlbumPrice"
@@ -52,16 +80,30 @@
         android:textColor="@color/spinbox_yellow"
         android:textSize="13dp"
         app:layout_constraintStart_toStartOf="@id/cartAlbumQuantity"
-        app:layout_constraintTop_toBottomOf="@id/cartAlbumQuantity" />
+        app:layout_constraintTop_toTopOf="@id/cartAlbumPriceImageView"
+        app:layout_constraintBottom_toBottomOf="@id/cartAlbumPriceImageView"/>
 
     <ImageView
-        android:id="@+id/albumDetailIcon"
+        android:id="@+id/albumAddIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/baseline_remove_red_eye_24"
-        app:layout_constraintTop_toTopOf="@id/cartAlbumTitle"
+        android:src="@drawable/baseline_add_circle_24"
+        app:layout_constraintTop_toTopOf="@id/cartAlbumArtist"
+        app:layout_constraintBottom_toBottomOf="@id/cartAlbumArtist"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="0dp">
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/albumRemoveIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_remove_circle_24"
+        app:layout_constraintTop_toTopOf="@id/cartAlbumPrice"
+        app:layout_constraintBottom_toBottomOf="@id/cartAlbumPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="0dp">
     </ImageView>
 

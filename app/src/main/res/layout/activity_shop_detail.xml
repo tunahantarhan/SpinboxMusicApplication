@@ -105,7 +105,7 @@
             android:id="@+id/shopDetailAlbumImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="50dp"
             app:layout_constraintHorizontal_bias="0"
             android:layout_marginLeft="25dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -117,14 +117,15 @@
 
         <TextView
             android:id="@+id/shopDetailAlbumTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Album Title"
             android:textColor="@color/spinbox_yellow"
-            android:textSize="26dp"
+            android:textSize="24dp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="80dp"
+            android:layout_marginStart="25dp"
             app:layout_constraintStart_toStartOf="@id/shopDetailAlbumImage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumImage" />
@@ -144,6 +145,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumTitle" />
 
+        <ImageView
+            android:id="@+id/shopDetailAlbumCountryImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumArtist"
+            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumArtist"
+            app:srcCompat="@drawable/baseline_flag_circle_24"
+            tools:ignore="MissingConstraints" />
+
         <TextView
             android:id="@+id/shopDetailAlbumCountry"
             android:layout_width="wrap_content"
@@ -152,25 +163,33 @@
             android:textColor="@color/spinbox_yellow"
             android:textSize="16dp"
             android:textStyle="italic"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumArtist" />
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/shopDetailAlbumCountryImageView"
+            app:layout_constraintTop_toTopOf="@id/shopDetailAlbumCountryImageView"
+            app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumCountryImageView"/>
 
         <TextView
             android:id="@+id/shopDetailAlbumYear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="73dp"
+            android:layout_height="24dp"
             android:layout_marginStart="20dp"
             android:text="Album Year"
             android:textColor="@color/spinbox_yellow"
             android:textSize="16dp"
             android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumCountryImageView"
+            app:layout_constraintTop_toTopOf="@id/shopDetailAlbumCountryImageView"
+            app:layout_constraintStart_toEndOf="@id/shopDetailAlbumCountry" />
+
+        <ImageView
+            android:id="@+id/shopDetailAlbumGenreImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumCountry"
-            app:layout_constraintStart_toEndOf="@id/shopDetailAlbumCountry"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumCountryImageView"
+            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumCountryImageView"
+            app:srcCompat="@drawable/baseline_library_music_24"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/shopDetailAlbumGenre"
@@ -180,11 +199,21 @@
             android:textColor="@color/spinbox_yellow"
             android:textSize="16dp"
             android:textStyle="italic"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumCountry" />
+            app:layout_constraintStart_toEndOf="@id/shopDetailAlbumGenreImageView"
+            app:layout_constraintTop_toTopOf="@id/shopDetailAlbumGenreImageView"
+            app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumGenreImageView" />
+
+        <ImageView
+            android:id="@+id/shopDetailAlbumRatingImageView"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumGenreImageView"
+            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumGenreImageView"
+            app:srcCompat="@drawable/baseline_recommend_24"
+            tools:ignore="MissingConstraints" />
 
         <TextView
             android:id="@+id/shopDetailAlbumRating"
@@ -194,11 +223,10 @@
             android:textColor="@color/spinbox_yellow"
             android:textSize="16dp"
             android:textStyle="italic"
-            android:layout_marginTop="10dp"
-            app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@id/shopDetailAlbumImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumGenre" />
+            android:layout_marginStart="10dp"
+            app:layout_constraintStart_toEndOf="@id/shopDetailAlbumRatingImageView"
+            app:layout_constraintTop_toTopOf="@id/shopDetailAlbumRatingImageView"
+            app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumRatingImageView" />
 
         <ImageView
             android:id="@+id/shopDetailCdImageView"

@@ -39,6 +39,7 @@ class ShopDetailActivity : AppCompatActivity() {
     private lateinit var firebaseDatabase: FirebaseDatabase
     private var selectedPrice: Double = 0.0
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shop_detail)
@@ -92,14 +93,20 @@ class ShopDetailActivity : AppCompatActivity() {
             }
         }
 
-
-        // Sepete Ekleme İşlemi
-        binding.shopDetailAddToCartButton.setOnClickListener {
-            if (selectedPrice == 0.0) {
-                Toast.makeText(applicationContext, "Lütfen bir fiyat seçin.", Toast.LENGTH_SHORT).show()
-            } else {
-                Log.d("ShopDetail", "Price before addToCart: $selectedPrice")
-                addToCart(title ?: "", artist ?: "", selectedPrice)
+        // Eğer stok 0 ise butonu devre dışı bırak
+        if (stock <= 0) {
+            binding.shopDetailAddToCartButton.isEnabled = false
+            binding.shopDetailAddToCartButton.setText("Stokta Yok")
+            Toast.makeText(this, "Bu ürün şu anda stokta yok.", Toast.LENGTH_SHORT).show()
+        } else {
+            // Stok varsa, "Sepete Ekle" işlemini etkinleştir
+            binding.shopDetailAddToCartButton.setOnClickListener {
+                if (selectedPrice == 0.0) {
+                    Toast.makeText(applicationContext, "Lütfen bir fiyat seçin.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.d("ShopDetail", "Price before addToCart: $selectedPrice")
+                    addToCart(title ?: "", artist ?: "", selectedPrice)
+                }
             }
         }
 
@@ -133,19 +140,29 @@ class ShopDetailActivity : AppCompatActivity() {
             val user = firebaseAuth.currentUser
             user?.let {
                 val uid = user.uid
-                firestore.collection("users").document(uid).get()
-                    .addOnSuccessListener { document ->
-                        if (document.exists()) {
-                            val role = document.get("role").toString()
-                            when (role) {
-                                "admin" -> startActivity(Intent(this, AdProfileActivity::class.java))
-                                "user" -> startActivity(Intent(this, ProfileActivity::class.java))
+                val database = FirebaseDatabase.getInstance().getReference("users")
+
+                database.child(uid).get().addOnSuccessListener { snapshot ->
+                    if (snapshot.exists()) {
+                        val role = snapshot.child("role").value.toString()
+                        when (role) {
+                            "admin" -> {
+                                startActivity(Intent(this, AdProfileActivity::class.java))
+                            }
+                            "user" -> {
+                                startActivity(Intent(this, ProfileActivity::class.java))
+                            }
+                            else -> {
+                                Toast.makeText(this, "Bilinmeyen rol.", Toast.LENGTH_SHORT).show()
                             }
                         }
+                    } else {
+                        Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener { e ->
-                        e.printStackTrace()
-                    }
+                }.addOnFailureListener { e ->
+                    e.printStackTrace()
+                    Toast.makeText(this, "Veritabanı hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

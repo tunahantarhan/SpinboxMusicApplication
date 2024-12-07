@@ -103,19 +103,29 @@
                 app:srcCompat="@drawable/baseline_shopping_cart_24"
                 tools:ignore="MissingConstraints" />
 
+            <ImageView
+                android:id="@+id/albumsAlbumImageView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/lp_icon"
+                app:layout_constraintTop_toBottomOf="@id/spinboxMusicLogoImage"
+                tools:ignore="MissingConstraints" />
+
             <TextView
                 android:id="@+id/albumsAlbumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ALBÜMLER"
+                android:text="Albümler"
                 android:textColor="@color/spinbox_yellow"
-                android:textSize="25dp"
+                android:textSize="35dp"
                 android:textStyle="bold"
-                android:layout_marginTop="40dp"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/spinboxMusicLogoImage" />
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/albumsAlbumImageView"
+                app:layout_constraintTop_toTopOf="@id/albumsAlbumImageView"
+                app:layout_constraintBottom_toBottomOf="@id/albumsAlbumImageView"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"

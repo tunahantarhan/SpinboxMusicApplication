@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
     android:background="#322401"
     android:padding="8dp"
     android:alpha="0.7"
@@ -11,12 +13,13 @@
 
     <TextView
         android:id="@+id/albumTitle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Album Title"
         android:textColor="@color/spinbox_yellow"
-        android:textSize="15dp"
+        android:textSize="17dp"
         android:textStyle="bold"
+        android:layout_marginEnd="100dp"
         android:layout_marginBottom="5dp"
         android:layout_marginStart="10dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +37,17 @@
         app:layout_constraintStart_toStartOf="@id/albumTitle"
         app:layout_constraintTop_toBottomOf="@id/albumTitle" />
 
+    <ImageView
+        android:id="@+id/albumCdPriceImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_cd_24"
+        app:layout_constraintStart_toStartOf="@id/albumArtist"
+        app:layout_constraintTop_toBottomOf="@id/albumArtist"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="5dp">
+    </ImageView>
+
     <TextView
         android:id="@+id/cdPrice"
         android:layout_width="0dp"
@@ -41,8 +55,21 @@
         android:text="CD Price"
         android:textColor="@color/spinbox_yellow"
         android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="@id/albumArtist"
-        app:layout_constraintTop_toBottomOf="@id/albumArtist" />
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/albumCdPriceImageView"
+        app:layout_constraintTop_toTopOf="@id/albumCdPriceImageView"
+        app:layout_constraintBottom_toBottomOf="@id/albumCdPriceImageView"/>
+
+    <ImageView
+        android:id="@+id/albumLpPriceImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:src="@drawable/lp_icon"
+        app:layout_constraintStart_toStartOf="@id/albumCdPriceImageView"
+        app:layout_constraintTop_toBottomOf="@id/albumCdPriceImageView"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="2dp">
+    </ImageView>
 
     <TextView
         android:id="@+id/lpPrice"
@@ -51,8 +78,10 @@
         android:text="LP Price"
         android:textColor="@color/spinbox_yellow"
         android:textSize="13dp"
-        app:layout_constraintStart_toStartOf="@id/cdPrice"
-        app:layout_constraintTop_toBottomOf="@id/cdPrice" />
+        android:layout_marginStart="5dp"
+        app:layout_constraintStart_toEndOf="@id/albumLpPriceImageView"
+        app:layout_constraintTop_toTopOf="@id/albumLpPriceImageView"
+        app:layout_constraintBottom_toBottomOf="@id/albumLpPriceImageView"/>
 
     <ImageView
         android:id="@+id/albumDetailIcon"
@@ -61,7 +90,7 @@
         android:src="@drawable/baseline_remove_red_eye_24"
         app:layout_constraintTop_toTopOf="@id/albumTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="0dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="0dp">
     </ImageView>
 
