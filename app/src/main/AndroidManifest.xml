@@ -41,6 +41,9 @@
         <activity
             android:name=".AlbumsActivity"
             android:exported="false" />
+        <activity
+            android:name=".ShopDetailActivity"
+            android:exported="false" />
         <activity android:name=".ProfileActivity"
             android:exported="false" />
         <activity android:name=".AdProfileActivity"

@@ -14,6 +14,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.spinboxmusicapplication.databinding.ActivityAlbumsBinding
+import com.example.spinboxmusicapplication.databinding.AlbumItemBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
@@ -82,8 +83,6 @@ class AlbumsActivity : AppCompatActivity() {
                 Toast.makeText(this@AlbumsActivity, "Veri alınırken hata oluştu: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
-
-        binding.
 
         // Navigation Drawer işlemleri
         navView.setNavigationItemSelectedListener {

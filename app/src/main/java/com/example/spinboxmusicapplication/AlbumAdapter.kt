@@ -7,11 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import Album
+import android.content.Intent
 
 class AlbumAdapter(private val albumList: List<Album>) :
     RecyclerView.Adapter<AlbumAdapter.AlbumViewHolder>() {
 
     class AlbumViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val shopDetailButton = itemView.findViewById<ImageView>(R.id.albumDetailIcon)
         val albumTitle: TextView = itemView.findViewById(R.id.albumTitle)
         val cdPrice: TextView = itemView.findViewById(R.id.cdPrice)
         val lpPrice: TextView = itemView.findViewById(R.id.lpPrice)
@@ -28,9 +30,25 @@ class AlbumAdapter(private val albumList: List<Album>) :
         val album = albumList[position]
 
         holder.albumTitle.text = album.title
-        holder.cdPrice.text = "CD:  ${album.cdPrice} ₺"
-        holder.lpPrice.text = "LP:  ${album.lpPrice} ₺"
+        holder.cdPrice.text = "CD: ${album.cdPrice?.toString() ?: "Bilinmiyor"} ₺"
+        holder.lpPrice.text = "LP: ${album.lpPrice?.toString() ?: "Bilinmiyor"} ₺"
         holder.albumArtist.text = album.artist
+
+        // Tıklama olayını ekleyelim
+        holder.shopDetailButton.setOnClickListener {
+            val intent = Intent(holder.itemView.context, ShopDetailActivity::class.java)
+            intent.putExtra("title", album.title)
+            intent.putExtra("artist", album.artist)
+            intent.putExtra("cdPrice", album.cdPrice)
+            intent.putExtra("lpPrice", album.lpPrice)
+            intent.putExtra("year", album.year)
+            intent.putExtra("country", album.country)
+            intent.putExtra("rating", album.rating)
+            intent.putExtra("genre", album.genre)
+            intent.putExtra("stock", album.stock)
+
+            holder.itemView.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = albumList.size

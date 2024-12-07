@@ -111,7 +111,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinboxMusicLogoImage"
-            app:srcCompat="@drawable/album_cover_placeholder"
+            app:srcCompat="@drawable/spinbox_music_logo_yellow"
+            android:background="@color/spinbox_brown"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -219,7 +220,7 @@
             android:text="CD: XXX ₺"
             android:textColor="@color/spinbox_yellow"
             android:textSize="20dp"
-            android:textStyle="italic"
+            android:textStyle="bold"
             android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@id/shopDetailCdImageView"
             app:layout_constraintTop_toTopOf="@id/shopDetailCdImageView"
@@ -245,18 +246,31 @@
             android:text="LP: XXX ₺"
             android:textColor="@color/spinbox_yellow"
             android:textSize="20dp"
-            android:textStyle="italic"
+            android:textStyle="bold"
             android:layout_marginStart="15dp"
             app:layout_constraintStart_toEndOf="@id/shopDetailLpImageView"
             app:layout_constraintTop_toTopOf="@id/shopDetailLpImageView"
             app:layout_constraintBottom_toBottomOf="@id/shopDetailLpImageView" />
+        <TextView
+            android:id="@+id/shopDetailStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock Number Text"
+            android:textColor="@color/spinbox_yellow"
+            android:textSize="14dp"
+            android:textStyle="italic"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/shopDetailAddToCartButton" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/shopDetailAddToCartButton"
             android:padding="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
             android:background="@color/spinbox_yellow"
             android:text="Sepete Ekle"
             android:textColor="@color/spinbox_brown"
@@ -270,7 +284,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navView"
+        android:id="@+id/shopDetailNavView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
