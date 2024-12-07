@@ -1,0 +1,68 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#322401"
+    android:padding="8dp"
+    android:alpha="0.7"
+    android:layout_marginBottom="5dp">
+
+
+    <TextView
+        android:id="@+id/cartAlbumTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Album Title"
+        android:textColor="@color/spinbox_yellow"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/cartAlbumArtist"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:text="Album Artist"
+        android:textColor="#59DBCF61"
+        android:textSize="13dp"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintStart_toStartOf="@id/cartAlbumTitle"
+        app:layout_constraintTop_toBottomOf="@id/cartAlbumTitle" />
+
+    <TextView
+        android:id="@+id/cartAlbumQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Quantity: "
+        android:textColor="@color/spinbox_yellow"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@id/cartAlbumArtist"
+        app:layout_constraintTop_toBottomOf="@id/cartAlbumArtist" />
+
+    <TextView
+        android:id="@+id/cartAlbumPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price: (RadioButton seçimine göre CD veya LP) "
+        android:textColor="@color/spinbox_yellow"
+        android:textSize="13dp"
+        app:layout_constraintStart_toStartOf="@id/cartAlbumQuantity"
+        app:layout_constraintTop_toBottomOf="@id/cartAlbumQuantity" />
+
+    <ImageView
+        android:id="@+id/albumDetailIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_remove_red_eye_24"
+        app:layout_constraintTop_toTopOf="@id/cartAlbumTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="0dp">
+    </ImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -104,6 +104,11 @@ class AlbumsActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START) // Drawer açılıyor
         }
 
+        binding.cartImageView.setOnClickListener{
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
         // User Profile Navigation
         binding.userImageView.setOnClickListener {
             val user = firebaseAuth.currentUser

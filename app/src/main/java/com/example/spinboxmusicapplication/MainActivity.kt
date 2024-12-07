@@ -5,6 +5,7 @@ import android.net.http.HttpResponseCache.install
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.spinboxmusicapplication.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.gson.Gson
 import com.google.rpc.context.AttributeContext.Auth
@@ -74,28 +76,38 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.openDrawer(GravityCompat.START) // Drawer açılıyor
         }
 
-        binding.userImageView.setOnClickListener{
+        binding.cartImageView.setOnClickListener{
+            val intent = Intent(this, CartActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.userImageView.setOnClickListener {
             val user = firebaseAuth.currentUser
             user?.let {
                 val uid = user.uid
-                firestore.collection("users").document(uid).get()
-                    .addOnSuccessListener { document ->
-                        if (document.exists()) {
-                            val role = document.get("role").toString()
-                            when (role) {
-                                "admin" -> {
-                                    startActivity(Intent(this, AdProfileActivity::class.java))
-                                }
-                                "user" -> {
-                                    startActivity(Intent(this, ProfileActivity::class.java))
-                                }
+                val database = FirebaseDatabase.getInstance().getReference("users")
+
+                database.child(uid).get().addOnSuccessListener { snapshot ->
+                    if (snapshot.exists()) {
+                        val role = snapshot.child("role").value.toString()
+                        when (role) {
+                            "admin" -> {
+                                startActivity(Intent(this, AdProfileActivity::class.java))
+                            }
+                            "user" -> {
+                                startActivity(Intent(this, ProfileActivity::class.java))
+                            }
+                            else -> {
+                                Toast.makeText(this, "Bilinmeyen rol.", Toast.LENGTH_SHORT).show()
                             }
                         }
+                    } else {
+                        Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
                     }
-                    .addOnFailureListener { e ->
-                        // Hata durumunda Logcat'e hata mesajı basabilirsiniz
-                        e.printStackTrace()
-                    }
+                }.addOnFailureListener { e ->
+                    e.printStackTrace()
+                    Toast.makeText(this, "Veritabanı hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 

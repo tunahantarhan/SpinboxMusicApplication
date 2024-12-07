@@ -7,14 +7,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignInBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.database.FirebaseDatabase
 
 @Suppress("DEPRECATION")
 class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignInBinding
     private lateinit var firebaseAuth: FirebaseAuth
-    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +24,8 @@ class SignInActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        firestore = FirebaseFirestore.getInstance()
 
-        // Giriş ekranına yönlendirme
+        // Kayıt ekranına yönlendirme
         binding.textView.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
@@ -44,24 +42,29 @@ class SignInActivity : AppCompatActivity() {
                         val user = firebaseAuth.currentUser
                         user?.let {
                             val uid = user.uid
-                            firestore.collection("users").document(uid).get()
-                                .addOnSuccessListener { document ->
-                                    if (document.exists()) {
-                                        val role = document.get("role").toString()
-                                        Toast.makeText(this, "Giriş başarılı. Rol: ${role.uppercase()}", Toast.LENGTH_SHORT).show()
-                                        val intent = Intent(this, MainActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    } else {
-                                        Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
-                                    }
+                            val database = FirebaseDatabase.getInstance().getReference("users")
+
+                            database.child(uid).get().addOnSuccessListener { snapshot ->
+                                if (snapshot.exists()) {
+                                    val email = snapshot.child("email").value.toString()
+                                    val role = snapshot.child("role").value.toString()
+                                    Toast.makeText(
+                                        this,
+                                        "Giriş başarılı. Rol: ${role.uppercase()}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                } else {
+                                    Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
                                 }
-                                .addOnFailureListener {
-                                    Toast.makeText(this, "Veritabanı hatası: ${it.message}", Toast.LENGTH_SHORT).show()
-                                }
+                            }.addOnFailureListener {
+                                Toast.makeText(this, "Veritabanı hatası: ${it.message}", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     } else {
-                        Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, task.exception?.message.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
@@ -72,7 +75,7 @@ class SignInActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Oturum açılmışsa önce kullanıcıyı çıkış yap, tekrar giriş yapmaya zorla
+        // Oturum açılmışsa çıkış yap, tekrar giriş yapılmasını zorla
         if (firebaseAuth.currentUser != null) {
             firebaseAuth.signOut()
         }

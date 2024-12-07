@@ -6,16 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.spinboxmusicapplication.databinding.ActivitySignUpBinding
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.firestore
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 @Suppress("DEPRECATION")
-class SignUpActivity : AppCompatActivity(){
+class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var usersDatabase: DatabaseReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,50 +26,72 @@ class SignUpActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         firebaseAuth = FirebaseAuth.getInstance()
+        usersDatabase = FirebaseDatabase.getInstance().getReference("users")
 
-        //Kullanıcı "Kayıt Ol" butonuna tıkladığında:
-        binding.button.setOnClickListener{
-            val email = binding.emailEnter.text.toString() //emailEnter kısmına girilen email'i alır.
-            val pass = binding.passwordEnter.text.toString() //passwordEnter kısmına girilen password'ü alır.
-            val confirmPass = binding.confirmPassEnter.text.toString() //confirmPassEnter kısmına tekrar girilen password'ü alır.
+        // Kullanıcı "Kayıt Ol" butonuna tıkladığında:
+        binding.button.setOnClickListener {
+            val email = binding.emailEnter.text.toString()
+            val pass = binding.passwordEnter.text.toString()
+            val confirmPass = binding.confirmPassEnter.text.toString()
 
-            //Tüm kutucuklar doluysa ve girilen şifreler uyuşuyorsa:
-            if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()){
-                if (pass != confirmPass){
-                    Toast.makeText(this, "Lütfen girilen şifrelerin aynı olduğundan emin olunuz.", Toast.LENGTH_SHORT).show()
-                    //LENGTH_SHORT --> 2 saniye, LENGTH_LONG --> 3.5 saniye
-                }
-                else if (pass == confirmPass){
+            // Tüm kutucuklar doluysa ve girilen şifreler uyuşuyorsa:
+            if (email.isNotEmpty() && pass.isNotEmpty() && confirmPass.isNotEmpty()) {
+                if (pass != confirmPass) {
+                    Toast.makeText(
+                        this,
+                        "Lütfen girilen şifrelerin aynı olduğundan emin olunuz.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
                             val currentUser = firebaseAuth.currentUser
-                            val db = FirebaseFirestore.getInstance()
-                            val userData = hashMapOf(
-                                "role" to "user"
-                            )
-                            Toast.makeText(this,"Başarılı bir şekilde giriş yapıldı.", Toast.LENGTH_SHORT).show()
+                            if (currentUser != null) {
+                                val uid = currentUser.uid
 
-                            db.collection("users").document(currentUser!!.uid).set(userData).addOnSuccessListener{
-                                val intent = Intent(this, SignInActivity::class.java)
-                                startActivity(intent)
-                            }.addOnFailureListener { e ->
-                                Toast.makeText(this, "User data kayıt hatası: ${e.message}", Toast.LENGTH_SHORT).show()
+                                // User data'yı 'users' koleksiyonuna kaydetme ve cart'ı null olarak başlatma
+                                val userData = hashMapOf(
+                                    "email" to email,
+                                    "role" to "user",
+                                    "cart" to mapOf("initialized" to true)
+                                )
+
+                                usersDatabase.child(uid).setValue(userData)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(
+                                            this,
+                                            "Kayıt başarılı, giriş ekranına yönlendiriliyorsunuz.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                        val intent = Intent(this, SignInActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+                                    .addOnFailureListener { e ->
+                                        e.printStackTrace()
+                                        Toast.makeText(
+                                            this,
+                                            "Kullanıcı verisi kaydedilemedi: ${e.message}",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
                             }
-                        }
-                        else {
+                        } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
-                            //Eğer işlem başarılı bir şekilde gerçekleşmezse, sorun ne ise onu geribildirim gönderir.
                         }
                     }
                 }
-            }
-            else {
-                Toast.makeText(this, "Lütfen tüm bilgilerin girildiğinden emin olunuz.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "Lütfen tüm bilgilerin girildiğinden emin olunuz.",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
 
-        //Kullanıcı zaten kayıtlıysa giriş yapmasını belirten yazıya tıklayınca:
-        binding.textView.setOnClickListener{
+        // Kullanıcı zaten kayıtlıysa giriş yapmasını belirten yazıya tıklayınca:
+        binding.textView.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
         }

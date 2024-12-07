@@ -105,9 +105,9 @@
             android:id="@+id/shopDetailAlbumImage"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintHorizontal_bias="0"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="25dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinboxMusicLogoImage"
@@ -204,27 +204,14 @@
             android:id="@+id/shopDetailCdImageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintHorizontal_bias="0"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shopDetailAlbumRating"
             app:srcCompat="@drawable/baseline_cd_24"
             tools:ignore="MissingConstraints" />
-
-        <TextView
-            android:id="@+id/shopDetailCdPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CD: XXX ₺"
-            android:textColor="@color/spinbox_yellow"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginStart="15dp"
-            app:layout_constraintStart_toEndOf="@id/shopDetailCdImageView"
-            app:layout_constraintTop_toTopOf="@id/shopDetailCdImageView"
-            app:layout_constraintBottom_toBottomOf="@id/shopDetailCdImageView" />
 
         <ImageView
             android:id="@+id/shopDetailLpImageView"
@@ -232,25 +219,13 @@
             android:layout_height="30dp"
             android:layout_marginTop="10dp"
             app:layout_constraintHorizontal_bias="0"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/shopDetailCdImageView"
             app:srcCompat="@drawable/lp_icon"
             tools:ignore="MissingConstraints" />
 
-        <TextView
-            android:id="@+id/shopDetailLpPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LP: XXX ₺"
-            android:textColor="@color/spinbox_yellow"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:layout_marginStart="15dp"
-            app:layout_constraintStart_toEndOf="@id/shopDetailLpImageView"
-            app:layout_constraintTop_toTopOf="@id/shopDetailLpImageView"
-            app:layout_constraintBottom_toBottomOf="@id/shopDetailLpImageView" />
         <TextView
             android:id="@+id/shopDetailStock"
             android:layout_width="wrap_content"
@@ -264,6 +239,42 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/shopDetailAddToCartButton" />
+
+        <RadioGroup
+            android:id="@+id/priceOptionGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="@id/shopDetailCdImageView"
+            app:layout_constraintTop_toTopOf="@id/shopDetailCdImageView"
+            tools:ignore="MissingConstraints">
+
+            <RadioButton
+                android:id="@+id/shopDetailCdPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CD: XXX ₺"
+                android:textColor="@color/spinbox_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toEndOf="@id/shopDetailCdImageView"
+                app:layout_constraintTop_toTopOf="@id/shopDetailCdImageView"
+                app:layout_constraintBottom_toBottomOf="@id/shopDetailCdImageView"/>
+
+            <RadioButton
+                android:id="@+id/shopDetailLpPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LP: XXX ₺"
+                android:textColor="@color/spinbox_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="15dp"
+                app:layout_constraintStart_toEndOf="@id/shopDetailLpImageView"
+                app:layout_constraintTop_toTopOf="@id/shopDetailLpImageView"
+                app:layout_constraintBottom_toBottomOf="@id/shopDetailLpImageView"/>
+        </RadioGroup>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/shopDetailAddToCartButton"
