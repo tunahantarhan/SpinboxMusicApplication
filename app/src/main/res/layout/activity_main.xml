@@ -114,10 +114,12 @@
             android:text="ALBÜMLER"
             android:textColor="@color/spinbox_yellow"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="25dp"
             android:layout_marginTop="15dp"
             android:layout_marginStart="10dp"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/viewFlipper"/>
 
         <ImageView
@@ -130,7 +132,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
-            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintHorizontal_bias="0.28"
             app:srcCompat="@drawable/arctic_monkeys_whatever"
             tools:layout_editor_absoluteY="37dp"
             tools:ignore="MissingConstraints" />
@@ -140,12 +142,12 @@
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
             app:layout_constraintHorizontal_bias="0.5"
-            app:srcCompat="@drawable/drinking_songs"
+            app:srcCompat="@drawable/nasil_ne_zaman"
             tools:layout_editor_absoluteY="37dp"
             tools:ignore="MissingConstraints" />
         <ImageView
@@ -154,12 +156,12 @@
             android:layout_height="100dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/mainAlbumText"
-            app:layout_constraintHorizontal_bias="0.92"
-            app:srcCompat="@drawable/nasil_ne_zaman"
+            app:layout_constraintHorizontal_bias="0.7"
+            app:srcCompat="@drawable/drinking_songs"
             tools:layout_editor_absoluteY="37dp"
             tools:ignore="MissingConstraints" />
 
@@ -171,12 +173,13 @@
             android:textColor="@color/spinbox_yellow"
             android:textStyle="bold"
             android:textSize="15dp"
+            android:padding="10dp"
             android:background="@color/spinbox_brown"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintTop_toBottomOf="@id/mainAlbumImage3"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
