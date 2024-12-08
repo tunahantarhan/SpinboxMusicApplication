@@ -170,13 +170,14 @@
 
         <TextView
             android:id="@+id/shopDetailAlbumYear"
-            android:layout_width="73dp"
-            android:layout_height="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Album Year"
             android:textColor="@color/spinbox_yellow"
             android:textSize="16dp"
             android:textStyle="italic"
+            android:layout_marginTop="2dp"
             app:layout_constraintBottom_toBottomOf="@id/shopDetailAlbumCountryImageView"
             app:layout_constraintTop_toTopOf="@id/shopDetailAlbumCountryImageView"
             app:layout_constraintStart_toEndOf="@id/shopDetailAlbumCountry" />

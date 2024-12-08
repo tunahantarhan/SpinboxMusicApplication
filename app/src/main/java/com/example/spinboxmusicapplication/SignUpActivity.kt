@@ -53,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
                                 val userData = hashMapOf(
                                     "email" to email,
                                     "role" to "user",
+                                    "disabled" to false
                                 )
 
                                 usersDatabase.child(uid).setValue(userData)

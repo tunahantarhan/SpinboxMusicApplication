@@ -11,6 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.spinboxmusicapplication.databinding.ActivityAdProfileBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class AdProfileActivity : AppCompatActivity() {
@@ -55,6 +57,14 @@ class AdProfileActivity : AppCompatActivity() {
                 .setMessage("Hesabınız silinecektir. Emin misiniz?")
                 .setCancelable(false)
                 .setPositiveButton("Evet") { dialog, _ ->
+                    val database = FirebaseDatabase.getInstance().reference
+                    val  db = FirebaseFirestore.getInstance()
+
+                    //Firestore'dan silme
+                    db.collection("users").document(currentUser!!.uid).delete()
+                    //Firebase'den silme
+                    database.child("users").child(currentUser!!.uid).removeValue()
+                    //Auth arasından silme
                     currentUser?.delete()?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this@AdProfileActivity, "Hesabınız silindi.", Toast.LENGTH_LONG).show()

@@ -10,12 +10,6 @@
         android:title="Anasayfa" />
 
     <item
-        android:id="@+id/navFavorites"
-        android:icon="@drawable/baseline_favorite_border_24"
-        android:iconTint="@color/spinbox_yellow"
-        android:title="Favoriler" />
-
-    <item
         android:id="@+id/navOrders"
         android:icon="@drawable/baseline_shopping_bag_24"
         android:iconTint="@color/spinbox_yellow"

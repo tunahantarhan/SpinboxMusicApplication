@@ -95,7 +95,7 @@
                 android:id="@+id/checkoutCheckoutImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/baseline_local_shipping_24"
@@ -140,7 +140,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Adresiniz"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textPostalAddress"
+                    android:importantForAccessibility="yes"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -164,21 +165,23 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/checkoutCreditCardLayoutEnter"
                     style="@style/LoginTextInputInnerFieldStyle"
+                    android:maxLength="16"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Kredi Kartı Numaranız"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="number"
+                    android:importantForAccessibility="yes"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/checkoutCreditCardExpLayout"
+                android:id="@+id/checkoutCreditCardMonthLayout"
                 style="@style/LoginTextInputOuterFieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="180dp"
+                android:layout_marginEnd="270dp"
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
@@ -189,12 +192,41 @@
                 app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/checkoutCreditCardExpLayoutEnter"
+                    android:id="@+id/checkoutCreditCardMonthLayoutEnter"
                     style="@style/LoginTextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Son. Kul. Tarihi"
-                    android:inputType="textEmailAddress" />
+                    android:hint="Ay"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:importantForAccessibility="yes"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/checkoutCreditCardYearLayout"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="150dp"
+                android:layout_marginEnd="150dp"
+                android:textColorHint="@color/spinbox_yellow"
+                app:boxStrokeColor="@color/spinbox_yellow"
+                app:hintTextColor="@color/spinbox_yellow"
+                android:background="@color/spinbox_brown"
+                android:alpha="0.9"
+                app:layout_constraintStart_toEndOf="@id/checkoutCreditCardMonthLayout"
+                app:layout_constraintTop_toTopOf="@id/checkoutCreditCardMonthLayout"
+                app:layout_constraintBottom_toBottomOf="@id/checkoutCreditCardMonthLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/checkoutCreditCardYearLayoutEnter"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Yıl"
+                    android:maxLength="2"
+                    android:inputType="number"
+                    android:importantForAccessibility="yes"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -203,35 +235,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="250dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="270dp"
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
                 android:background="@color/spinbox_brown"
                 android:alpha="0.9"
-                app:layout_constraintStart_toEndOf="@id/checkoutCreditCardExpLayout"
-                app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardLayout">
+                app:layout_constraintStart_toStartOf="@id/checkoutCreditCardMonthLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardMonthLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/checkoutCreditCardCvvLayoutEnter"
                     style="@style/LoginTextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="3"
                     android:hint="CVV"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="number"
+                    android:importantForAccessibility="yes"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <ImageView
                 android:id="@+id/checkoutCartTextImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/baseline_shopping_bag_24"
-                app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardExpLayout"
+                app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardCvvLayout"
                 tools:ignore="MissingConstraints" />
 
             <TextView
@@ -282,7 +317,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="70dp"
                 android:layout_marginEnd="70dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/spinbox_yellow"
                 android:text="Siparişini Tamamla"
                 android:textColor="@color/spinbox_brown"

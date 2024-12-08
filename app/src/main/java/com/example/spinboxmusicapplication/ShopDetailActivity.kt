@@ -86,6 +86,9 @@ class ShopDetailActivity : AppCompatActivity() {
                     selectedPrice = cdPrice // CD fiyatını seçtik
                     Log.d("ShopDetail", "CD Price selected: $selectedPrice")  // Fiyatı log'la
                 }
+                R.id.navOrders -> {
+                    startActivity(Intent(this, OrdersActivity::class.java))
+                }
                 R.id.shopDetailLpPrice -> {
                     selectedPrice = lpPrice // LP fiyatını seçtik
                     Log.d("ShopDetail", "LP Price selected: $selectedPrice")  // Fiyatı log'la

@@ -45,7 +45,8 @@ class SignInActivity : AppCompatActivity() {
                             val database = FirebaseDatabase.getInstance().getReference("users")
 
                             database.child(uid).get().addOnSuccessListener { snapshot ->
-                                if (snapshot.exists()) {
+                                val disabled = snapshot.child("disabled").value as? Boolean
+                                if (snapshot.exists() && disabled != true) {
                                     val email = snapshot.child("email").value.toString()
                                     val role = snapshot.child("role").value.toString()
                                     Toast.makeText(
@@ -56,6 +57,8 @@ class SignInActivity : AppCompatActivity() {
                                     val intent = Intent(this, MainActivity::class.java)
                                     startActivity(intent)
                                     finish()
+                                } else if (snapshot.child("disabled").value == true) {
+                                    Toast.makeText(this, "Bu kullanıcı devre dışı bırakılmış.", Toast.LENGTH_SHORT).show()
                                 } else {
                                     Toast.makeText(this, "Kullanıcı verisi bulunamadı.", Toast.LENGTH_SHORT).show()
                                 }

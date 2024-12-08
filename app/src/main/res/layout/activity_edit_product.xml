@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/background_img">
+
+    <EditText
+        android:id="@+id/titleEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Product Title"
+        android:textColorHint="@color/spinbox_yellow"
+        android:textColor="@color/spinbox_yellow"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/cdPriceEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="CD Price"
+        android:textColorHint="@color/spinbox_yellow"
+        android:textColor="@color/spinbox_yellow"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/lpPriceEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="LP Price"
+        android:textColorHint="@color/spinbox_yellow"
+        android:textColor="@color/spinbox_yellow"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/stockEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Stock"
+        android:textColorHint="@color/spinbox_yellow"
+        android:textColor="@color/spinbox_yellow"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Düzenlemeyi Kaydet"
+        android:textColor="@color/spinbox_yellow"/>
+
+</LinearLayout>

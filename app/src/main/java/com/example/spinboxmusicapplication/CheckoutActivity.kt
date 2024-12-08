@@ -18,6 +18,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.gson.Gson
+import java.io.InputStreamReader
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
 import kotlin.toString
 
 class CheckoutActivity : AppCompatActivity() {
@@ -49,6 +53,9 @@ class CheckoutActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.navHome -> {
                     startActivity(Intent(this, MainActivity::class.java))
+                }
+                R.id.navOrders -> {
+                    startActivity(Intent(this, OrdersActivity::class.java))
                 }
                 R.id.navLogOut -> {
                     firebaseAuth.signOut()
@@ -95,14 +102,53 @@ class CheckoutActivity : AppCompatActivity() {
         }
 
         binding.checkoutOrderButton.setOnClickListener{
-            completeOrder()
-            Toast.makeText(applicationContext, "Siparişiniz alınmıştır", Toast.LENGTH_SHORT).show()
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
+            val creditCardNumber = binding.checkoutCreditCardLayoutEnter
+            val creditCardMonth = binding.checkoutCreditCardMonthLayoutEnter
+            val creditCardYear = binding.checkoutCreditCardYearLayoutEnter
+            val cvv = binding.checkoutCreditCardCvvLayoutEnter
+
+            val isValid = validateCreditCardInput(
+                creditCardNumber.text.toString(),
+                creditCardMonth.text.toString(),
+                creditCardYear.text.toString(),
+                cvv.text.toString()
+            )
+
+            if (isValid) {
+                completeOrder()
+                Toast.makeText(applicationContext, "Siparişiniz alınmıştır", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, MainActivity::class.java))
+                finish()
+            }
+            else {
+                Toast.makeText(this, "Lütfen tüm alanların uygun girildiğinden emin olunuz.", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        // Load cart data
         loadCartSummary()
+
+        fetchCurrencyDataUsd().start()
+        fetchCurrencyDataEur().start()
+    }
+
+    fun validateCreditCardInput(cardNumber: String, month: String, year: String, cvv: String): Boolean {
+        if (cardNumber.length != 16 || !cardNumber.all { it.isDigit() }) {
+            return false
+        }
+
+        if (month.length != 2 || month.toInt() !in 1..12) {
+            return false
+        }
+
+        if (year.length != 2 || !year.all { it.isDigit() }) {
+            return false
+        }
+
+        if (cvv.length != 3 || !cvv.all { it.isDigit() }) {
+            return false
+        }
+
+        return true
     }
 
     private fun loadCartSummary() {
@@ -167,13 +213,13 @@ class CheckoutActivity : AppCompatActivity() {
                                 // Siparişi başarılı şekilde ekledikten sonra cart'ı temizle
                                 cartRef.removeValue().addOnCompleteListener { removeTask ->
                                     if (removeTask.isSuccessful) {
-                                        Log.d("CheckoutActivity", "Cart successfully cleared.")
+                                        Log.d("CheckoutActivity", "Cart başarıyla temizlendi")
                                     } else {
-                                        Log.e("CheckoutActivity", "Failed to clear cart: ${removeTask.exception?.message}")
+                                        Log.e("CheckoutActivity", "Cart temizleme ERROR: ${removeTask.exception?.message}")
                                     }
                                 }
                             } else {
-                                Log.e("CheckoutActivity", "Failed to add order: ${task.exception?.message}")
+                                Log.e("CheckoutActivity", "Sipariş ekleme ERROR: ${task.exception?.message}")
                             }
                         }
                     }
@@ -185,5 +231,64 @@ class CheckoutActivity : AppCompatActivity() {
             }
         })
     }
+
+    //WEB API --> USD/TRY kurunu çeker.
+    private fun fetchCurrencyDataUsd(): Thread {
+        return Thread {
+            val currencyUsdTry = binding.tryUsd
+            val link = URL("https://open.er-api.com/v6/latest/usd")
+            val connection = link.openConnection() as HttpsURLConnection
+
+            if (connection.responseCode == 200) {
+                val inputSystem = connection.inputStream
+                val inputStreamReader = InputStreamReader(inputSystem, "UTF-8")
+                val request = Gson().fromJson(inputStreamReader, RequestUsd::class.java)
+                inputSystem.close()
+                inputStreamReader.close()
+
+                val usdTryRate = request.rates["TRY"]  // Get the TRY rate
+                if (usdTryRate != null) {
+                    currencyValueUsd(usdTryRate)
+                }
+            } else {
+                currencyUsdTry.text = "Bağlantı Hatası"
+            }
+        }
+    }
+
+    //WEB API --> EUR/TRY kurunu çeker.
+    private fun fetchCurrencyDataEur(): Thread {
+        return Thread {
+            val currencyEurTry = binding.tryEur
+            val link = URL("https://open.er-api.com/v6/latest/eur")
+            val connection = link.openConnection() as HttpsURLConnection
+
+            if (connection.responseCode == 200) {
+                val inputSystem = connection.inputStream
+                val inputStreamReader = InputStreamReader(inputSystem, "UTF-8")
+                val request = Gson().fromJson(inputStreamReader, RequestEur::class.java)
+                inputSystem.close()
+                inputStreamReader.close()
+
+                val eurTryRate = request.rates["TRY"]  // Get the TRY rate
+                currencyValueEur(eurTryRate)
+            } else {
+                currencyEurTry.text = "Bağlantı Hatası"
+            }
+        }
+    }
+
+    private fun currencyValueUsd(usdTryRate: Double) {
+        runOnUiThread {
+            binding.tryUsd.text = String.format("$ = $usdTryRate")
+        }
+    }
+
+    private fun currencyValueEur(eurTryRate: Double?) {
+        runOnUiThread {
+            binding.tryEur.text = String.format("€ = $eurTryRate")
+        }
+    }
 }
+
 

@@ -147,6 +147,10 @@ class MainActivity : AppCompatActivity() {
         binding.goAlbumTextView.setOnClickListener{
             startActivity(Intent(this, AlbumsActivity::class.java))
         }
+
+        binding.goOrdersImageView.setOnClickListener {
+            startActivity(Intent(this, OrdersActivity::class.java))
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

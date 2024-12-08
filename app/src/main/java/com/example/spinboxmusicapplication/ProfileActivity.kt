@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.spinboxmusicapplication.databinding.ActivityProfileBinding
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.delay
 import java.util.zip.Inflater
@@ -20,6 +21,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firestore: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +57,13 @@ class ProfileActivity : AppCompatActivity() {
                 .setCancelable(false)
                 .setPositiveButton("Evet") { dialog, _ ->
                     val db = FirebaseFirestore.getInstance()
+                    val database = FirebaseDatabase.getInstance().reference
+
+                    //Firestore'dan silme
                     db.collection("users").document(currentUser!!.uid).delete()
+                    //Firebase'den silme
+                    database.child("users").child(currentUser!!.uid).removeValue()
+                    //Auth arasından silme
                     currentUser?.delete()?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             Toast.makeText(this@ProfileActivity, "Hesabınız silindi.", Toast.LENGTH_LONG).show()
