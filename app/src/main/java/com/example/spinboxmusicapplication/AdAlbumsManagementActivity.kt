@@ -23,6 +23,17 @@ class AdAlbumsManagementActivity : AppCompatActivity() {
         binding = ActivityAdAlbumsManagementBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Kullanıcı görüntüleme ve çıkış işlemleri
+        binding.userImageView.setOnClickListener {
+            val intent = Intent(this, AdProfileActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.homepageImageView.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
         recyclerView = binding.recyclerView
         adapter = ProductsAdapter(productsList, this::editProduct, this::deleteProduct)
         recyclerView.layoutManager = LinearLayoutManager(this)

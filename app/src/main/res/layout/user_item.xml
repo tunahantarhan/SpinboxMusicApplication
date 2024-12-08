@@ -46,7 +46,10 @@
         android:background="@color/spinbox_yellow"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:clickable="false"
+        android:enabled="false"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/deleteButton"
@@ -56,5 +59,7 @@
         android:background="@color/spinbox_yellow"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:clickable="false"
+        android:enabled="false"/>
 </LinearLayout>

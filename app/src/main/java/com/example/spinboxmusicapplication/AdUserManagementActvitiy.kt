@@ -55,7 +55,9 @@ class AdUserManagementActivity : AppCompatActivity() {
                 for (userSnapshot in snapshot.children) {
                     val user = userSnapshot.getValue(User::class.java)
                     if (user != null) {
-                        usersList.add(user)
+                        if(user.role != "admin"){
+                            usersList.add(user)
+                        }
                     }
                 }
                 adapter.notifyDataSetChanged()
