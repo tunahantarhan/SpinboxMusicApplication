@@ -48,5 +48,10 @@ class AdMainActivity : AppCompatActivity() {
             val intent = Intent(this, AdAlbumsManagementActivity::class.java)
             startActivity(intent)
         }
+
+        binding.adminOrderManagementImageView.setOnClickListener{
+            val intent = Intent(this, AdOrdersManagementActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
