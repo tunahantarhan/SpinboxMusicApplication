@@ -14,7 +14,8 @@ data class Order(
     val productTitle: String = "",
     val orderDate: Long = 0L,
     val price: Double = 0.0,
-    val quantity: Int = 1
+    val quantity: Int = 1,
+    val uid : String = ""
 )
 class OrderAdapter(private val orders: List<Order>) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
 
@@ -26,6 +27,12 @@ class OrderAdapter(private val orders: List<Order>) : RecyclerView.Adapter<Order
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val order = orders[position]
         holder.productTitleTextView.text = order.productTitle
+        if (order.uid.toString() == ""){
+            holder.orderUidTextView.text = "Siz"
+        }
+        else{
+            holder.orderUidTextView.text = "UID : ${order.uid}"
+        }
         holder.quantityTextView.text = "Adet : ${order.quantity}"
         holder.priceTextView.text = "Fiyat (Adet) : ${order.price} ₺"
         holder.orderDateTextView.text = "${formatDate(order.orderDate)}"
@@ -42,6 +49,7 @@ class OrderAdapter(private val orders: List<Order>) : RecyclerView.Adapter<Order
     }
 
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val orderUidTextView: TextView = itemView.findViewById(R.id.orderUidText)
         val productTitleTextView: TextView = itemView.findViewById(R.id.productTitleTextView)
         val priceTextView: TextView = itemView.findViewById(R.id.priceTextView)
         val quantityTextView: TextView = itemView.findViewById(R.id.quantityTextView)

@@ -35,6 +35,9 @@ class AdOrdersManagementActivity : AppCompatActivity() {
         binding = ActivityAdOrdersManagementBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        firebaseDatabase = FirebaseDatabase.getInstance()
+
+
         binding.userImageView.setOnClickListener {
             val intent = Intent(this, AdProfileActivity::class.java)
             startActivity(intent)
@@ -44,11 +47,15 @@ class AdOrdersManagementActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.approveOrdersButton.setOnClickListener {
+            clearOrders()
+            Toast.makeText(this, "Tüm siparişler onaylandı", Toast.LENGTH_SHORT).show()
+        }
+
         ordersRecyclerView = findViewById(R.id.ordersRecyclerView)
         ordersRecyclerView.layoutManager = LinearLayoutManager(this)
         orderAdapter = OrderAdapter(orders)
         ordersRecyclerView.adapter = orderAdapter
-
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -61,18 +68,18 @@ class AdOrdersManagementActivity : AppCompatActivity() {
     }
 
     private fun loadAllOrders() {
-        firebaseDatabase = FirebaseDatabase.getInstance()
         val ordersRef = firebaseDatabase.getReference("orders")
 
         ordersRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 orders.clear()
                 for (userSnapshot in snapshot.children) { // Her kullanıcı
+                    val uid = userSnapshot.key ?: continue // Kullanıcının UID'sini al
                     for (orderDateSnapshot in userSnapshot.children) { // Her tarih
                         for (orderSnapshot in orderDateSnapshot.children) { // Her sipariş
                             val order = orderSnapshot.getValue(Order::class.java)
                             order?.let {
-                                orders.add(it)
+                                orders.add(it.copy(uid = uid)) // UID'yi ekle
                             }
                         }
                     }
@@ -86,9 +93,15 @@ class AdOrdersManagementActivity : AppCompatActivity() {
         })
     }
 
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (toggle.onOptionsItemSelected(item)) {
             true
         } else super.onOptionsItemSelected(item)
+    }
+
+    private fun clearOrders() {
+        orders.clear() // Listeden tüm öğeleri kaldır
+        orderAdapter.notifyDataSetChanged() // RecyclerView'ı güncelle
     }
 }
