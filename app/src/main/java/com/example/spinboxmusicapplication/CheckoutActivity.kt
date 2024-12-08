@@ -181,12 +181,12 @@ class CheckoutActivity : AppCompatActivity() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val cartRef = firebaseDatabase.getReference("cart").child(userId)
         val ordersRef = FirebaseDatabase.getInstance().getReference("orders").child(userId)
+        val productsRef = firebaseDatabase.getReference("products")
 
         // Sepetteki ürünleri al
         cartRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    // Sipariş verisini oluştur
                     val orderDate = System.currentTimeMillis() // Sipariş tarihi
                     val orderMap = mutableMapOf<String, Any>()
                     val productMap = mutableMapOf<String, Any>()
@@ -197,12 +197,36 @@ class CheckoutActivity : AppCompatActivity() {
                         val quantity = itemSnapshot.child("quantity").getValue(Int::class.java) ?: 1
 
                         title?.let {
-                            productMap["$title"] = mapOf(
+                            productMap[it] = mapOf(
                                 "productTitle" to title,
                                 "price" to price,
                                 "quantity" to quantity,
                                 "orderDate" to orderDate
                             )
+
+                            // Stok güncelle
+                            productsRef.child(it).child("stock").addListenerForSingleValueEvent(object : ValueEventListener {
+                                override fun onDataChange(productSnapshot: DataSnapshot) {
+                                    val currentStock = productSnapshot.getValue(Int::class.java) ?: 0
+                                    val newStock = currentStock - quantity
+                                    if (newStock >= 0) {
+                                        productsRef.child(it).child("stock").setValue(newStock)
+                                            .addOnCompleteListener { task ->
+                                                if (task.isSuccessful) {
+                                                    Log.d("CheckoutActivity", "Stok güncellendi: $it -> $newStock")
+                                                } else {
+                                                    Log.e("CheckoutActivity", "Stok güncelleme ERROR: ${task.exception?.message}")
+                                                }
+                                            }
+                                    } else {
+                                        Log.w("CheckoutActivity", "Yetersiz stok: $it")
+                                    }
+                                }
+
+                                override fun onCancelled(error: DatabaseError) {
+                                    Log.e("CheckoutActivity", "Stok okuma HATA: ${error.message}")
+                                }
+                            })
                         }
                     }
 
@@ -210,7 +234,7 @@ class CheckoutActivity : AppCompatActivity() {
                     if (productMap.isNotEmpty()) {
                         ordersRef.child(orderDate.toString()).setValue(productMap).addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                // Siparişi başarılı şekilde ekledikten sonra cart'ı temizle
+                                // Cart'ı temizle
                                 cartRef.removeValue().addOnCompleteListener { removeTask ->
                                     if (removeTask.isSuccessful) {
                                         Log.d("CheckoutActivity", "Cart başarıyla temizlendi")
