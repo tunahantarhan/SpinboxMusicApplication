@@ -152,6 +152,7 @@ class CheckoutActivity : AppCompatActivity() {
 
                         title?.let {
                             productMap["$title"] = mapOf(
+                                "productTitle" to title,
                                 "price" to price,
                                 "quantity" to quantity,
                                 "orderDate" to orderDate

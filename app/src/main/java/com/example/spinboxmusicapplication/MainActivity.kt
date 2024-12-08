@@ -63,6 +63,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navHome -> {
                     startActivity(Intent(this, MainActivity::class.java))
                 }
+                R.id.navOrders -> {
+                    startActivity(Intent(this, OrdersActivity::class.java))
+                }
                 R.id.navLogOut -> {
                     firebaseAuth.signOut()
                     finish()

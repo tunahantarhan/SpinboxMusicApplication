@@ -50,6 +50,9 @@
             android:exported="false" />
         <activity android:name=".CheckoutActivity"
             android:exported="false" />
+        <activity android:name=".OrdersActivity"
+            android:exported="false"
+            tools:ignore="MissingClass" />
         <activity android:name=".AdProfileActivity"
             android:exported="false" />
         <activity android:name=".ChangeMailActivity"

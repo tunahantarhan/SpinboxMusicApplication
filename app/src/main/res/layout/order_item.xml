@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:alpha="0.7"
+    android:background="#322401"
+    android:layout_marginBottom="5dp"
+    tools:context=".OrderAdapter">
+
+
+
+    <TextView
+        android:id="@+id/productTitleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Product Title"
+        android:textStyle="bold"
+        android:textColor="@color/spinbox_yellow"
+        android:layout_marginEnd="160dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/priceIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_money_24"
+        app:layout_constraintStart_toStartOf="@id/productTitleTextView"
+        app:layout_constraintTop_toBottomOf="@id/productTitleTextView"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="5dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price: 0.0 ₺"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/spinbox_yellow"
+        app:layout_constraintTop_toTopOf="@id/priceIcon"
+        app:layout_constraintBottom_toBottomOf="@id/priceIcon"
+        app:layout_constraintStart_toEndOf="@id/priceIcon" />
+
+    <ImageView
+        android:id="@+id/quantityIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_shopping_bag_24"
+        app:layout_constraintStart_toStartOf="@id/priceIcon"
+        app:layout_constraintTop_toBottomOf="@id/priceIcon"
+        android:layout_marginEnd="0dp"
+        android:layout_marginTop="5dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/quantityTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Quantity: 1"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/spinbox_yellow"
+        app:layout_constraintTop_toTopOf="@id/quantityIcon"
+        app:layout_constraintBottom_toBottomOf="@id/quantityIcon"
+        app:layout_constraintStart_toEndOf="@id/quantityIcon" />
+
+    <ImageView
+        android:id="@+id/orderDateIcon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/baseline_calendar_month_24"
+        android:alpha="0.7"
+        app:layout_constraintEnd_toStartOf="@id/orderDateTextView"
+        app:layout_constraintTop_toTopOf="@id/productTitleTextView"
+        app:layout_constraintBottom_toBottomOf="@id/productTitleTextView">
+    </ImageView>
+
+
+    <TextView
+        android:id="@+id/orderDateTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dd/MM/yy HH:mm"
+        android:textStyle="italic"
+        android:textSize="12dp"
+        android:alpha="0.7"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/spinbox_yellow"
+        app:layout_constraintTop_toTopOf="@id/orderDateIcon"
+        app:layout_constraintBottom_toBottomOf="@id/orderDateIcon"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
