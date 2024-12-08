@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context=".CartActivity"
+    tools:context=".CheckoutActivity"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_img"
-            tools:context=".CartActivity"
+            tools:context=".CheckoutActivity"
             tools:ignore="RedundantNamespace">
 
             <TextView
@@ -95,7 +95,7 @@
                 android:id="@+id/checkoutCheckoutImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/baseline_local_shipping_24"
@@ -108,9 +108,10 @@
                 android:layout_height="wrap_content"
                 android:text="Sipariş"
                 android:textColor="@color/spinbox_yellow"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="2dp"
                 app:layout_constraintStart_toEndOf="@id/checkoutCheckoutImageView"
                 app:layout_constraintTop_toTopOf="@id/checkoutCheckoutImageView"
                 app:layout_constraintBottom_toBottomOf="@id/checkoutCheckoutImageView"/>
@@ -121,13 +122,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="50dp"
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
-                android:background="@color/spinbox_yellow"
+                android:background="@color/spinbox_brown"
                 android:alpha="0.9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/checkoutCheckoutImageView"
@@ -154,7 +155,7 @@
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
-                android:background="@color/spinbox_yellow"
+                android:background="@color/spinbox_brown"
                 android:alpha="0.9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/checkoutAddressLayout"
@@ -181,7 +182,7 @@
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
-                android:background="@color/spinbox_yellow"
+                android:background="@color/spinbox_brown"
                 android:alpha="0.9"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/checkoutCreditCardLayout"
@@ -208,7 +209,7 @@
                 android:textColorHint="@color/spinbox_yellow"
                 app:boxStrokeColor="@color/spinbox_yellow"
                 app:hintTextColor="@color/spinbox_yellow"
-                android:background="@color/spinbox_yellow"
+                android:background="@color/spinbox_brown"
                 android:alpha="0.9"
                 app:layout_constraintStart_toEndOf="@id/checkoutCreditCardExpLayout"
                 app:layout_constraintTop_toBottomOf="@id/checkoutCreditCardLayout">
@@ -226,7 +227,7 @@
                 android:id="@+id/checkoutCartTextImageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:srcCompat="@drawable/baseline_shopping_bag_24"
@@ -237,41 +238,59 @@
                 android:id="@+id/checkoutCartText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ürün Kontrol"
+                android:text="Sepet Toplamı:"
                 android:textColor="@color/spinbox_yellow"
-                android:textSize="30dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="2dp"
                 app:layout_constraintStart_toEndOf="@id/checkoutCartTextImageView"
                 app:layout_constraintTop_toTopOf="@id/checkoutCartTextImageView"
                 app:layout_constraintBottom_toBottomOf="@id/checkoutCartTextImageView"/>
 
-            <ScrollView
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/checkoutCartTotalPriceTextImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toEndOf="@id/checkoutCartText"
+                app:srcCompat="@drawable/baseline_money_24"
+                app:layout_constraintTop_toTopOf="@id/checkoutCartTextImageView"
+                app:layout_constraintBottom_toBottomOf="@id/checkoutCartTextImageView"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/checkoutCartTotalPriceText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/checkoutCartTextImageView"
-                app:layout_constraintBottom_toTopOf="@id/checkoutOrderButton">
-            </ScrollView>
+                android:text="500.00 ₺"
+                android:textColor="@color/spinbox_yellow"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="2dp"
+                app:layout_constraintStart_toEndOf="@id/checkoutCartTotalPriceTextImageView"
+                app:layout_constraintTop_toTopOf="@id/checkoutCartText"
+                app:layout_constraintBottom_toBottomOf="@id/checkoutCartText"/>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/checkoutOrderButton"
                 android:padding="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
                 android:layout_marginStart="70dp"
                 android:layout_marginEnd="70dp"
+                android:layout_marginTop="50dp"
                 android:background="@color/spinbox_yellow"
                 android:text="Siparişini Tamamla"
                 android:textColor="@color/spinbox_brown"
-                android:textSize="20sp"
+                android:textSize="17dp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/checkoutCartText"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

@@ -37,7 +37,7 @@ class CartAdapter(private val cartList: MutableList<CartItem>, private val onAdd
             albumTitleTextView.text = cartItem.title
             albumArtistTextView.text = cartItem.artist
             albumQuantityTextView.text = "Adet: ${cartItem.quantity}"
-            albumPriceTextView.text = "Fiyat: ${cartItem.price} ₺"
+            albumPriceTextView.text = "Fiyat: ${cartItem.price * cartItem.quantity} ₺"
 
             addIcon.setOnClickListener{
                 onAddItemClick(cartItem)

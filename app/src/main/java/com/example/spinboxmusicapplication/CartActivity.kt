@@ -80,6 +80,15 @@ class CartActivity : AppCompatActivity() {
             clearCartContents()
         }
 
+        binding.cartBuyButton.setOnClickListener {
+            //Eğer sepet boş değil ise
+            if (cartList.isNotEmpty()) {
+                startActivity(Intent(this, CheckoutActivity::class.java))
+            } else {
+                Toast.makeText(this, "Sepetiniz boş.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         binding.userImageView.setOnClickListener {
             val user = firebaseAuth.currentUser
             user?.let {
