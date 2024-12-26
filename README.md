@@ -12,12 +12,12 @@ SpinBox Music uygulaması, 2024 yılında okul projem doğrultusunda ortaya çı
 
 SpinBox Music uygulaması, müzik albümlerine fiziksel formatta ulaşımın dijital ortamda kolayca sağlandığı bir çevrimici mağaza uygulamasıdır. SpinBox Music, kullanıcılar ve özellikle de müziğin takibinde eski klasik tadı, dokuyu arayanlar için geliştirilmiş bir uygulamadır. SpinBox Music müzikseverleri bir araya toplayan bir çevrimici platformdur. Günümüzde neredeyse her şey gibi müziğe ulaşmak da fazlasıyla büyük bir oranda dijitalleşmiştir. Bu gelişen ve büyüyen dijital ortamda müzik severlerin fiziksel olarak klasik dokuyu yakalama isteklerine karşılık vermek için böyle bir platformun gerekliliği ortaya çıkmıştır. Standart kullanıcılığın yanında koleksiyonerler için de oldukça büyük bir hizmet sunan SpinBox Music, büyük sayıda özel koleksiyonluk ürün versiyonları ile  geniş bir alışveriş yelpazesi sunmaktadır. SpinBox Music, kullanıcı dostu ve yüksek erişilebilirlikteki arayüzü, basit ve güvenilir ödeme sistemiyle müzik alışverişinin keyfini ve erişilebilirliğini arttırmaktadır. 
 
-### A.  _Misyon_
+### A.  _Misyon_
     
 
 SpinBox Music projesi başlangıcında belirtildiği üzere müzik severlere, müzik takibinde eski klasik dokuyu arayan müzik tutkunlarına yönelik hizmet sağlama amacıyla doğmuş bir projedir. SpinBox Music projesinin misyonu hedef kitlenin ve kullanıcıların CD veya LP (plak) formatında müzik albümlerine ulaşmasını, güvenli bir şekilde çevrimici olarak arzu ettikleri ürünlerin satın alımını ve alışverişini gerçekleştirerek mutlu bir kullanım deneyimi yaşamalarıdır. Uygulama üzerinden ürünlerin detaylı bir şekilde incelenmesi, hızlıca sepete eklenmesi ve satın alım işleminin güvenli bir şekilde tamamlanması misyon aranmış ve karşılanmıştır. Müzik konusunda her yaştan ve zevkten,  çok geniş bir kitleye ulaşmak amaçlanmıştır.
 
-## 1.  YÖNTEM
+## 3.  YÖNTEM
     
 
 SpinBox Music uygulaması, müzik albümlerini CD ve LP olarak dijital ortamda fiziksel formatta satışa sunan bir mobil uygulamak olma özelliğiyle Android platformu için geliştirilmiştir. Kullanıcı dostu, göze hitap eden, özenlice tasarlanmış arayüzü ve hızlı işlem kapasitesi gibi özellikleriyle; müzikseverlerin, müziğe ulaşmadaki eski dokuyu arayan kullanıcıların çevrimici bir şekilde kolayca fiziksel müziğe ulaşmasını sağlamaktadır.
@@ -62,7 +62,7 @@ Admin arayüzünün ana ekranında üç adet banner şeklinde yönlendirme vard�
 
 Son olarak “Sipariş Yönetimi” sayfası ile kullanıcıların eriştiği databasedeki “orders” kısmının ilgili kendi uid’leri altındaki siparişlerden ziyade aynı sistemi kullanarak admin direkt olarak “orders” klasöründeki bütün uid’lerin, dolayısıyla  tüm kullanıcıların siparişlerini görüntüleyebilir. Ekranın en altında bulunun sipariş onay butonu ile ise bu siparişleri onaylar ve kendi tarafında işlemini gerçekleştirdiği için siparişler ekranını boşaltır
 
-### D.  _Deneysel Sonuçlar, Uygulama Mantığı ve İş Akışları_
+## 4.  _Deneysel Sonuçlar, Uygulama Mantığı ve İş Akışları_
     
 
 Bu kısımda uygulamadaki bazı ana fonksiyonların iş akışlarını detaylıca inceleyeceğiz. Uygulamanın tüm geliştirilme aşaması şahsi olarak benim için bu konuda bilgisi olmayan bir lisans öğrencisi için deneysel ve öğretici olmakla beraber, bu konuda tecrübe kazanmak benim için en iyi yanlardandı. Yöntem kısmında sayfalarda kullanılan  uygulama mantıklarından ve akışından genellikle bahsettiğim için burada daha rahat bir şekilde ifade edeceğim. Başlıca ana fonksiyonlar şöyledir: 
@@ -74,7 +74,7 @@ Bu kısımda uygulamadaki bazı ana fonksiyonların iş akışlarını detaylıc
 *   Sipariş Tamamlama Sistemi: Sepet sayfasında sepet boş olmadığı sürece eklenen ürünlerin toplam fiyatını ödeme tamamlama ekranına aktararak gösteren bir ödemeye geçme butonu vardır. Bu buton ile ödeme sayfası açılır ve ilgili input kutularına ilgili bilgiler kutu tarzına uygun girilmişse siparişi tamamlama butonu çalışır. Siparişin alındığı mesajını Toast olarak verir, sepeti temizler. Siparişi veri tabanında orders klasörü altında uid’ler içerisinde ürünlerin siparişinin verildiği anın milisaniye cinsinden değeri ile isimlendirilmiş belgelerde saklanır.
     
 
-### E.  Sonuç
+## 5.  Sonuç
     
 
 SpinBox Music uygulaması, müzik severlerin klasik bir şekilde fiziksel olarak albüm satın alma isteklerinin dijital ortamda karşılandığı bir platform projesidir. Bu uygulama klasik ve eski dokuyu içinde bulunduran fiziksel albümlerin satışını kolaylaştırmayı amaçlayan başarılı bir projedir. Kullanıcı dostu, hızlı, optimal ve güvenli arayüzü, senkronize gelişmiş veritabanı bağlantıları, veri işleme yapısı ile sofistike ve modern bir uygulamadır. Firabase ve Kotlin yazılım dili gibi alanında en gelişmiş ve modern teknolojik imkanlar sayesinde diğer uygulamaların önüne geçmeyi başarmıştır. Kotlin diliyle yazılan uygulama doğal olarak modern yenilikçi, okunulabilir, rahat ve güvenli bir yapı sunar. Alanında en önde gelen Android uygulama geliştirme ortamı olan Android Studio ile de en üst düzeyde verimli bir geliştirme ortamı sağlanmıştır. 
@@ -85,7 +85,7 @@ Sonuç olarak SpinBox Music uygulaması; müzik alışverişini eski klasik yol 
 
 İlerleyen süreçte yolumuza hız kesmeden başarıyla devam etmek istemekle birlikte, daha fazla özelliklerin eklenmesiyle, her geçen gün kullanıcı memnuniyet seviyesinin arttılmasıyla üstüne koyarak kararlı bir şekilde ilerleme hedefindeyiz. Bu uygulama, müzik endüstrisi ve pazarını dijital dünya ile bir araya getirmesi nedeniyle büyük bir projedir.
 
-### F.  Kaynakça
+## F.  Kaynakça
     
 
 - Digitalogy, “Top Programming Languages for Android App Development,”, section 3, March 2024.
