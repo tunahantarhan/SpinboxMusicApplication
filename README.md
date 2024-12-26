@@ -85,7 +85,7 @@ Sonuç olarak SpinBox Music uygulaması; müzik alışverişini eski klasik yol 
 
 İlerleyen süreçte yolumuza hız kesmeden başarıyla devam etmek istemekle birlikte, daha fazla özelliklerin eklenmesiyle, her geçen gün kullanıcı memnuniyet seviyesinin arttılmasıyla üstüne koyarak kararlı bir şekilde ilerleme hedefindeyiz. Bu uygulama, müzik endüstrisi ve pazarını dijital dünya ile bir araya getirmesi nedeniyle büyük bir projedir.
 
-## F.  Kaynakça
+## 6.  Kaynakça
     
 
 - Digitalogy, “Top Programming Languages for Android App Development,”, section 3, March 2024.
